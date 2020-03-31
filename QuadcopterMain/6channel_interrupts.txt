@@ -1,0 +1,67 @@
+ISR(PCINT0_vect) {
+  timer[0] = micros();
+  //Channel 2
+  if (last_channel[0] == 0 && PINB & B00000001) {
+    last_channel[0] = 1;
+    timer[1] = timer[0];
+  }
+  else if (last_channel[0] == 1 && !(PINB & B00000001)) {
+    last_channel[0] = 0;
+    input[1] = timer[0] - timer[1];
+  }
+  //Channel 3
+  if (last_channel[1] == 0 && PINB & B00000010) {
+    last_channel[1] = 1;
+    timer[2] = timer[0];
+  }
+  else if (last_channel[1] == 1 && !(PINB & B00000010)) {
+    last_channel[1] = 0;
+    input[2] = timer[0] - timer[2];
+  }
+  //Channel 4
+  if (last_channel[2] == 0 && PINB & B00000100) {
+    last_channel[2] = 1;
+    timer[3] = timer[0];
+  }
+  else if (last_channel[2] == 1 && !(PINB & B00000100)) {
+    last_channel[2] = 0;
+    input[3] = timer[0] - timer[3];
+  }
+  //Channel 5
+  if (last_channel[3] == 0 && PINB & B00001000) {
+    last_channel[3] = 1;
+    timer[4] = timer[0];
+  }
+  else if (last_channel[3] == 1 && !(PINB & B00001000)) {
+    last_channel[3] = 0;
+    input[4] = timer[0] - timer[4];
+  }
+  //Channel 6
+  if (last_channel[4] == 0 && PINB & B00010000) {
+    last_channel[4] = 1;
+    timer[5] = timer[0];
+  }
+  else if (last_channel[4] == 1 && !(PINB & B00010000)) {
+    last_channel[4] = 0;
+    input[5] = timer[0] - timer[5];
+  }
+  //Serial.print("Interrupt1");
+  //Serial.println();
+}
+
+ISR(PCINT2_vect) {
+  timer[6] = micros();
+  //Channel 1
+  if (last_channel[5] == 0 && PIND & B01000000) {
+    last_channel[5] = 1;
+    timer[7] = timer[6];
+  }
+  else if (last_channel[5] == 1 && !(PIND & B01000000)) {
+    last_channel[5] = 0;
+    input[0] = timer[6] - timer[7];
+  }
+  
+  //Serial.print("Interrupt2");
+  //Serial.println();
+}
+
